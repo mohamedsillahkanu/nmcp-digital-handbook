@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>NMCP Digital Handbook | Official Library & Media Hub</title>
+  <title>NMCP Digital Handbook | YouTube + PDF Library</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <style>
@@ -82,7 +82,8 @@
     .result-section { font-size: 0.8rem; color: var(--gray-600); margin-top: 2px; }
     .result-type { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; margin-left: 8px; }
     .result-type.book { background: #e3f2fd; color: #1565c0; }
-    .result-type.video { background: #fff3e0; color: #e65100; }
+    .result-type.video { background: #ffebee; color: #c62828; }
+    .result-type.youtube { background: #ffebee; color: #c62828; }
     .no-results { padding: 20px; text-align: center; color: var(--gray-600); }
     
     .header-actions { display: flex; gap: 10px; }
@@ -133,7 +134,7 @@
     .section-title { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; }
     .section-subtitle { font-size: 0.85rem; opacity: 0.9; }
     
-    /* BOOKSHELF STYLE - preserved design */
+    /* BOOKSHELF STYLE */
     .bookshelf {
       background: radial-gradient(circle at center, #3a4050 1.5px, transparent 1.5px);
       background-size: 10px 10px; background-color: #1e2028; border-radius: 16px;
@@ -144,12 +145,13 @@
       display: flex;
       justify-content: space-evenly;
       align-items: flex-end;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       padding: 40px 30px 55px;
       min-height: 300px;
       position: relative;
       z-index: 2;
       width: 100%;
+      gap: 20px;
     }
     .shelf-row::before {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
@@ -171,8 +173,8 @@
       position: relative; cursor: pointer;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       filter: drop-shadow(0 8px 15px rgba(0,0,0,0.6));
-      flex: 1 1 0;
-      max-width: 140px;
+      flex: 0 0 auto;
+      width: 140px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -205,7 +207,7 @@
     }
     .book-info {
       position: absolute; top: -85px; left: 50%; transform: translateX(-50%) translateY(-10px);
-      background: #2a2d35; color: white; padding: 12px 15px; border-radius: 8px; width: 180px;
+      background: #2a2d35; color: white; padding: 12px 15px; border-radius: 8px; width: 190px;
       opacity: 0; transition: all 0.3s ease; pointer-events: none; z-index: 20;
       box-shadow: 0 8px 25px rgba(0,0,0,0.5);
     }
@@ -216,7 +218,7 @@
       border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid #2a2d35;
     }
     
-    /* Reader + Video Modal */
+    /* MODAL for YouTube / PDF / MP4 */
     .reader-view {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: linear-gradient(180deg, #0a2f44 0%, #041e2c 100%);
@@ -236,12 +238,20 @@
       position: relative;
     }
     .media-box {
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       border-radius: 24px;
       padding: 20px;
-      max-width: 1000px;
+      max-width: 1100px;
       width: 90%;
       backdrop-filter: blur(4px);
+      text-align: center;
+    }
+    .youtube-embed {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      border: none;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
     .video-player {
       width: 100%;
@@ -290,15 +300,11 @@
     .notification.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     .footer { background: var(--primary); color: white; padding: 20px 40px; text-align: center; font-size: 0.9rem; }
     
-    @media (max-width: 1100px) {
-      .shelf-row { flex-wrap: wrap; justify-content: center; gap: 20px; }
-      .book { max-width: 130px; flex: 0 0 auto; }
-    }
     @media (max-width: 780px) {
-      .book { max-width: 110px; }
+      .book { width: 120px; }
       .section-tab { padding: 8px 16px; font-size: 0.8rem; }
-      .header-text p { display: none; }
       .media-box { width: 95%; }
+      .youtube-embed { aspect-ratio: 16/9; }
     }
   </style>
 </head>
@@ -311,14 +317,14 @@
           <rect width="52" height="52" fill="url(#nmcpGrad)" rx="8"/>
           <rect x="0" y="0" width="52" height="3" fill="#e6b422" rx="2"/>
           <rect x="0" y="49" width="52" height="3" fill="#e6b422" rx="2"/>
-          <text x="8" y="36" font-family="Oswald, sans-serif" font-size="18" font-weight="700" fill="#e6b422">NMCP</text>
+          <text x="6" y="36" font-family="Oswald, sans-serif" font-size="18" font-weight="700" fill="#e6b422">NMCP</text>
         </svg>
       </div>
-      <div class="header-text"><h1>NMCP DIGITAL HANDBOOK</h1><p>Official Repository | PDF + Video Library</p></div>
+      <div class="header-text"><h1>NMCP DIGITAL HANDBOOK</h1><p>YouTube | PDF | MP4 Integrated Library</p></div>
     </div>
     <div class="search-container">
       <div class="search-box">
-        <input type="text" class="search-input" id="searchInput" placeholder="Search books, videos, manuals..." oninput="handleSearch(this.value)">
+        <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search books, YouTube videos, manuals..." oninput="handleSearch(this.value)">
         <button class="search-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
         <div class="search-results" id="searchResults"></div>
       </div>
@@ -339,12 +345,12 @@
     </div>
     <div class="section-header">
       <div class="section-icon" id="sectionIcon">📚</div>
-      <div><div class="section-title" id="sectionTitle">NMCP Official Collection</div><div class="section-subtitle" id="sectionSubtitle">Handbooks & Media</div></div>
+      <div><div class="section-title" id="sectionTitle">NMCP Official Collection</div><div class="section-subtitle" id="sectionSubtitle">Handbooks + Media</div></div>
     </div>
     <div class="bookshelf" id="bookshelf"><div class="shelf-row"><div class="empty-shelf-message">Loading NMCP Library...</div></div></div>
   </main>
 
-  <footer class="footer"><p><strong>NMCP Digital Handbook</strong> — Naval Military Command Portal | Integrated PDF & MP4 Learning</p><p>Official Digital Library | All Rights Reserved</p></footer>
+  <footer class="footer"><p><strong>NMCP Digital Handbook</strong> — Naval Military Command | Integrated YouTube, PDF & MP4 Learning Hub</p></footer>
 
   <!-- Reader Modal -->
   <div class="reader-view" id="readerView">
@@ -354,45 +360,62 @@
         <button class="btn btn-gold" onclick="closeReader()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg> Close</button>
       </div>
     </div>
-    <div class="media-container-main" id="mediaContainerMain">
-      <!-- dynamic video or pdf -->
-    </div>
+    <div class="media-container-main" id="mediaContainerMain"></div>
   </div>
 
   <div class="loading-overlay" id="loadingOverlay"><div style="background:#e6b422; padding:20px 40px; border-radius:50px; color:#000; font-weight:bold;">Loading NMCP content...</div></div>
   <div class="notification" id="notification"></div>
 
   <script>
-    // ==================== NMCP LIBRARY DATA (PDF + VIDEO) ====================
+    // ==================== NMCP LIBRARY DATA (YouTube + PDF + MP4) ====================
     const libraryData = {
       sections: [
         { id: 'all', name: 'All Resources', icon: '📚', description: 'Browse all NMCP materials', books: [] },
-        { id: 'manuals', name: 'Operational Manuals', icon: '📘', description: 'Official NMCP handbooks & SOPs', books: [] },
-        { id: 'training', name: 'Video Training', icon: '🎥', description: 'MP4 Drills & tutorials', books: [] },
-        { id: 'technology', name: 'Digital Systems', icon: '💻', description: 'Cybersecurity & IT guides', books: [] },
+        { id: 'manuals', name: 'Operational Manuals', icon: '📘', description: 'Official NMCP handbooks & SOPs (PDF)', books: [] },
+        { id: 'youtube', name: 'YouTube Training', icon: '▶️', description: 'NMCP Video Playlists & Tutorials', books: [] },
+        { id: 'digital', name: 'Digital Systems', icon: '💻', description: 'Cybersecurity & IT guides', books: [] },
         { id: 'leadership', name: 'Leadership Series', icon: '⚓', description: 'Strategic command insights', books: [] }
       ]
     };
 
-    // Populate manuals
+    // Populate manuals (PDFs)
     libraryData.sections[1].books = [
       { title: "NMCP Standing Orders", type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", desc: "Standard operating procedures" },
       { title: "Maritime Safety Handbook", type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", desc: "Safety at sea protocols" }
     ];
+    
+    // YouTube videos embedded - using official YouTube embed links
     libraryData.sections[2].books = [
-      { title: "Bridge Simulator Briefing", type: "video", url: "https://youtu.be/Jt3k97hQ8ck", desc: "Navigation training MP4" },
-      { title: "Damage Control Drill", type: "video", url: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4", desc: "Emergency response exercise" },
-      { title: "Leadership at Sea", type: "video", url: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4", desc: "Command & control video" }
+      { title: "Naval Navigation Basics", type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ", desc: "Introduction to ship navigation", thumb: "🎬" },
+      { title: "Leadership at Sea (NMCP)", type: "youtube", url: "https://www.youtube.com/embed/tgbNymZ7vqY", desc: "Command & leadership principles", thumb: "⚓" },
+      { title: "Cybersecurity Awareness", type: "youtube", url: "https://www.youtube.com/embed/3KtWfp0UopM", desc: "Digital defense for modern navy", thumb: "🔐" },
+      { title: "Damage Control Procedures", type: "youtube", url: "https://www.youtube.com/embed/jfKfPfyJRdk", desc: "Emergency response training", thumb: "🚨" }
     ];
+    
     libraryData.sections[3].books = [
-      { title: "Cybersecurity Fundamentals", type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", desc: "NMCP cyber resilience" }
+      { title: "Cybersecurity Fundamentals (PDF)", type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", desc: "NMCP cyber resilience guide" },
+      { title: "NMCP IT Infrastructure", type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", desc: "Digital systems overview" }
     ];
+    
     libraryData.sections[4].books = [
-      { title: "Command Philosophy", type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", desc: "Ethos & leadership" },
-      { title: "Strategic Naval Insight", type: "video", url: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4", desc: "Admiral's address" }
+      { title: "Command Philosophy (PDF)", type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", desc: "Ethos & leadership handbook" },
+      { title: "Strategic Naval Insight (YouTube)", type: "youtube", url: "https://www.youtube.com/embed/tgbNymZ7vqY", desc: "Admiral's address on modern warfare", thumb: "🎖️" }
     ];
 
-    // Flatten all books for search & all section
+    // Helper: Extract YouTube ID from any format (just in case)
+    function getYoutubeEmbedUrl(url) {
+      if (url.includes('youtube.com/embed/')) return url;
+      if (url.includes('youtu.be/')) {
+        const videoId = url.split('youtu.be/')[1]?.split('?')[0];
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
+      if (url.includes('watch?v=')) {
+        const videoId = url.split('v=')[1]?.split('&')[0];
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
+      return url; // fallback
+    }
+
     function getAllBooks() {
       let all = [];
       for (let i = 1; i < libraryData.sections.length; i++) {
@@ -408,7 +431,6 @@
     let currentBooks = [];
     let soundEnabled = true;
     let currentPdfDoc = null, currentPdfPage = 1, totalPdfPages = 0;
-    let activeMediaType = null;
 
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
@@ -457,7 +479,7 @@
       document.getElementById('sectionIcon').textContent = section.icon;
       document.getElementById('sectionTitle').textContent = section.name;
       currentBooks = section.id === 'all' ? getAllBooks() : (section.books || []).map(b => ({ ...b, sectionName: section.name, sectionIcon: section.icon }));
-      document.getElementById('sectionSubtitle').textContent = `${currentBooks.length} resource${currentBooks.length !== 1 ? 's' : ''} (PDF + Video)`;
+      document.getElementById('sectionSubtitle').textContent = `${currentBooks.length} resource${currentBooks.length !== 1 ? 's' : ''} (YouTube + PDF)`;
       renderBookshelf();
       updateNavButtons();
     }
@@ -468,7 +490,7 @@
         shelfDiv.innerHTML = `<div class="shelf-row"><div class="empty-shelf-message">No resources in this category</div></div>`;
         return;
       }
-      const BOOKS_PER_ROW = 7;
+      const BOOKS_PER_ROW = 6;
       let rows = [];
       for (let i = 0; i < currentBooks.length; i += BOOKS_PER_ROW) rows.push(currentBooks.slice(i, i + BOOKS_PER_ROW));
       while (rows.length < 2) rows.push([]);
@@ -477,15 +499,16 @@
         <div class="shelf-row">
           ${row.map((book, idx) => {
             const globalIdx = currentBooks.indexOf(book);
+            const iconEmoji = book.type === 'youtube' ? '▶️' : (book.type === 'video' ? '🎬' : '📄');
             return `<div class="book" onclick="openResource(${globalIdx})">
               <div class="book-front">
-                <span style="font-size:2.5rem;">${book.type === 'video' ? '🎬' : '📄'}</span>
+                <span style="font-size:2.5rem;">${iconEmoji}</span>
                 <div class="book-front-overlay"></div>
               </div>
               <div class="book-pages-edge"></div>
               <div class="book-info">
                 <h4>${book.title}</h4>
-                <p>${book.type === 'video' ? '🎥 MP4 Video' : '📖 PDF Handbook'} • ${book.sectionIcon || ''}</p>
+                <p>${book.type === 'youtube' ? '🎥 YouTube Video' : (book.type === 'video' ? '🎬 MP4' : '📖 PDF')} • ${book.sectionIcon || ''}</p>
               </div>
             </div>`;
           }).join('')}
@@ -498,16 +521,22 @@
       if (!res) return;
       showNotification(`Opening: ${res.title}`);
       document.getElementById('readerView').classList.add('active');
-      document.getElementById('readerTitle').innerHTML = `${res.type === 'video' ? '▶️ VIDEO' : '📑 HANDBOOK'} : ${res.title}`;
+      document.getElementById('readerTitle').innerHTML = `${res.type === 'youtube' ? '🎥 YOUTUBE' : (res.type === 'video' ? '🎬 MP4' : '📑 HANDBOOK')} : ${res.title}`;
       const container = document.getElementById('mediaContainerMain');
       container.innerHTML = '';
       
-      if (res.type === 'video') {
-        activeMediaType = 'video';
-        container.innerHTML = `<div class="media-box"><video class="video-player" controls autoplay src="${res.url}"><source src="${res.url}" type="video/mp4">Your browser does not support MP4 playback.</video><p style="color:white; text-align:center; margin-top:15px;">${res.desc || 'NMCP Training Media'}</p></div>`;
+      if (res.type === 'youtube') {
+        const embedUrl = getYoutubeEmbedUrl(res.url);
+        container.innerHTML = `
+          <div class="media-box">
+            <iframe class="youtube-embed" src="${embedUrl}?autoplay=1&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p style="color:white; margin-top:15px;">${res.desc || 'NMCP Official Training'}</p>
+          </div>`;
       } 
+      else if (res.type === 'video') {
+        container.innerHTML = `<div class="media-box"><video class="video-player" controls autoplay src="${res.url}">MP4 not supported</video><p style="color:white; margin-top:15px;">${res.desc || 'NMCP Training Video'}</p></div>`;
+      }
       else if (res.type === 'pdf') {
-        activeMediaType = 'pdf';
         container.innerHTML = `
           <div class="media-box pdf-viewer-panel">
             <div id="pdfCanvasContainer" style="display:flex; justify-content:center; min-height:400px;"></div>
@@ -572,10 +601,10 @@
       const prevBtn = document.getElementById('pdfPrevBtnNMCP');
       const nextBtn = document.getElementById('pdfNextBtnNMCP');
       if (prevBtn) prevBtn.onclick = async () => {
-        if (currentPdfPage > 1) { currentPdfPage--; await renderPdfPage(currentPdfPage); document.getElementById('pdfPageNumDisplay').innerText = `Page ${currentPdfPage} / ${totalPdfPages}`; }
+        if (currentPdfPage > 1) { currentPdfPage--; await renderPdfPage(currentPdfPage); document.getElementById('pdfPageNumDisplay').innerText = `Page ${currentPdfPage} / ${totalPdfPages}`; playFlipSound(); }
       };
       if (nextBtn) nextBtn.onclick = async () => {
-        if (currentPdfPage < totalPdfPages) { currentPdfPage++; await renderPdfPage(currentPdfPage); document.getElementById('pdfPageNumDisplay').innerText = `Page ${currentPdfPage} / ${totalPdfPages}`; }
+        if (currentPdfPage < totalPdfPages) { currentPdfPage++; await renderPdfPage(currentPdfPage); document.getElementById('pdfPageNumDisplay').innerText = `Page ${currentPdfPage} / ${totalPdfPages}`; playFlipSound(); }
       };
     }
 
@@ -597,7 +626,7 @@
       showNotification(`Page flip sound ${soundEnabled ? 'ON' : 'OFF'}`);
     }
 
-    // Search implement
+    // Search across all
     function handleSearch(q) {
       if (!q.trim()) { document.getElementById('searchResults').classList.remove('active'); return; }
       const all = getAllBooks();
@@ -608,7 +637,7 @@
       } else {
         resultsDiv.innerHTML = filtered.map(r => `
           <div class="search-result-item" data-title="${r.title}" data-type="${r.type}" data-sectionid="${r.sectionId}">
-            <div class="result-title">${r.title}<span class="result-type ${r.type === 'video' ? 'video' : 'book'}">${r.type === 'video' ? '🎬 MP4' : '📄 PDF'}</span></div>
+            <div class="result-title">${r.title}<span class="result-type ${r.type === 'youtube' ? 'youtube' : 'book'}">${r.type === 'youtube' ? '🎬 YouTube' : (r.type === 'video' ? 'MP4' : 'PDF')}</span></div>
             <div class="result-section">${r.sectionIcon} ${r.sectionName}</div>
           </div>
         `).join('');
