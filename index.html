@@ -2,817 +2,736 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ICF-SL — Interactive District Chiefdom Malaria Information</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SNT Digital Handbook - ICF-SL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/tabler-icons.min.css">
     <style>
-        :root {
-            --navy: #004080;
-            --navy-dark: #003060;
-            --navy-light: #e6f0ff;
-            --gold: #ffc107;
-            --white: #ffffff;
-            --off-white: #f8f9fa;
-            --border: #e2e8f0;
-            --text: #000000;
-            --muted: #555555;
-            --green: #10b981;
-            --shadow: 0 4px 20px rgba(0,64,128,0.13);
-            --shadow-lift: 0 12px 40px rgba(0,64,128,0.22);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
         body {
-            font-family: 'Oswald', Arial, sans-serif;
-            background: var(--off-white);
-            color: var(--text);
-            font-size: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
             line-height: 1.6;
         }
 
-        /* ── HEADER ── */
         header {
-            background: var(--white);
-            border-bottom: 4px solid var(--navy);
-            padding: 1rem 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            box-shadow: 0 2px 12px rgba(0,64,128,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 200;
-        }
-
-        .brand { 
-            display: flex; 
-            align-items: center; 
-            gap: 0.75rem; 
-        }
-
-        .brand-badge {
-            width: 48px; height: 48px;
-            background: var(--navy);
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-            border: 3px solid var(--gold);
-        }
-
-        .brand-badge span {
-            font-family: 'Oswald', sans-serif;
-            font-weight: 700;
-            font-size: 0.7rem;
-            color: var(--white);
-            letter-spacing: 0.5px;
+            background-color: #004080;
+            color: #ffffff;
+            padding: 1.5rem 1rem;
             text-align: center;
-            line-height: 1.2;
+            border-bottom: 2px solid #004080;
         }
 
-        .brand-text h1 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--navy);
-            letter-spacing: -0.3px;
-            line-height: 1.2;
-        }
-
-        .brand-text p {
-            font-size: 0.7rem;
-            color: var(--muted);
-            font-weight: 300;
-            margin-top: 2px;
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 0.75rem;
-            justify-content: space-around;
-            width: 100%;
-        }
-
-        .hstat {
-            text-align: center;
-            flex: 1;
-            padding: 0.25rem 0;
-            background: var(--navy-light);
-            border-radius: 12px;
-        }
-
-        .hstat:first-child { border-left: none; }
-
-        .hstat-num {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--navy);
-            line-height: 1;
-        }
-
-        .hstat-label {
-            font-size: 0.65rem;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 3px;
-            font-weight: 400;
-        }
-
-        /* ── TITLE BAR ── */
-        .title-bar {
-            background: var(--navy);
-            color: var(--white);
-            padding: 1rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            border-bottom: 3px solid var(--gold);
-        }
-
-        .title-bar-icon {
-            width: 40px; height: 40px;
-            background: var(--gold);
-            border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .title-bar h2 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-        }
-
-        .title-bar p {
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.75);
-            font-weight: 300;
-            margin-top: 2px;
-        }
-
-        /* ── STATS BAR ── */
-        .stats-row {
-            background: var(--white);
-            border-bottom: 3px solid var(--border);
-            padding: 0.75rem 1rem;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .stat-pill {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--off-white);
-            padding: 0.3rem 0.8rem;
-            border-radius: 40px;
-        }
-
-        .stat-pill-icon {
-            width: 32px; height: 32px;
-            background: var(--navy-light);
-            border: 2px solid var(--navy);
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.9rem;
-        }
-
-        .stat-pill-num {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--navy);
-            line-height: 1;
-        }
-
-        .stat-pill-label {
-            font-size: 0.65rem;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 400;
-        }
-
-        .stats-row-divider {
-            width: 2px;
-            height: 24px;
-            background: var(--border);
-        }
-
-        /* ── LAYOUT phone: stacked vertical ── */
-        .main-wrap {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            min-height: auto;
-        }
-
-        .map-panel {
-            flex: auto;
-            overflow-y: auto;
-            padding: 1rem;
-            background: var(--off-white);
-            border-right: none;
-            border-bottom: 3px solid var(--border);
-        }
-
-        .info-panel {
-            flex: auto;
-            width: 100%;
-            overflow-y: auto;
-            background: var(--white);
-            display: flex;
-            flex-direction: column;
-            border-radius: 20px 20px 0 0;
-            margin-top: 0;
-        }
-
-        /* ── DISTRICT GRID phone: single column ── */
-        .districts-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-        }
-
-        .district-frame {
-            background: var(--white);
-            border: 3px double var(--navy);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 3px 12px rgba(0,64,128,0.08);
-        }
-
-        .district-title {
-            background: var(--navy);
-            padding: 0.7rem 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 3px solid var(--gold);
-        }
-
-        .district-title-text {
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--white);
-            letter-spacing: 0.3px;
-        }
-
-        .district-badge {
-            background: var(--gold);
-            color: var(--navy);
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 10px;
-            letter-spacing: 0.3px;
-        }
-
-        .chiefdoms-subplot {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            padding: 1rem;
-        }
-
-        .chiefdom-item { 
-            text-align: center; 
-        }
-
-        .chiefdom-dot {
-            width: 52px;
-            height: 52px;
-            background: var(--navy);
-            border: 3px solid var(--navy-light);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-family: 'Oswald', sans-serif;
-            font-weight: 700;
-            font-size: 0.7rem;
-            text-align: center;
-            line-height: 1;
-            margin: 0 auto;
-            transition: all 0.25s ease;
-            box-shadow: 0 3px 8px rgba(0,64,128,0.25);
-        }
-
-        .chiefdom-dot:hover {
-            background: var(--navy-dark);
-            border-color: var(--gold);
-            transform: scale(1.05);
-        }
-
-        .chiefdom-dot.selected {
-            background: var(--gold);
-            color: var(--navy);
-            border-color: var(--navy);
-            box-shadow: 0 6px 20px rgba(255,193,7,0.55);
-            transform: scale(1.08);
-        }
-
-        .chiefdom-label {
-            font-size: 0.6rem;
-            text-align: center;
-            margin-top: 6px;
-            color: var(--navy);
+        header h1 {
+            font-size: 20px;
             font-weight: 500;
-            word-break: break-word;
-            line-height: 1.2;
-            max-height: 32px;
-            overflow: hidden;
-            letter-spacing: 0.1px;
-        }
-
-        /* ── INFO PANEL ── */
-        .info-panel-head {
-            background: var(--navy);
-            padding: 1rem 1rem;
-            border-bottom: 3px solid var(--gold);
-            flex-shrink: 0;
-        }
-
-        .info-panel-head h3 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--white);
-            letter-spacing: 0.3px;
-        }
-
-        .info-panel-head p {
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.65);
-            font-weight: 300;
-            margin-top: 2px;
-        }
-
-        .info-panel-body { 
-            flex: 1; 
-            overflow-y: auto; 
-            padding: 1rem; 
-        }
-
-        /* Welcome state */
-        .welcome-state {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-
-        .welcome-icon {
-            width: 64px; height: 64px;
-            background: var(--navy-light);
-            border: 3px solid var(--navy);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.6rem;
-            margin: 0 auto 1rem;
-        }
-
-        .welcome-state h4 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1rem;
-            color: var(--navy);
-            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
-        .welcome-state p {
-            font-size: 0.85rem;
-            color: var(--muted);
-            line-height: 1.5;
-            font-weight: 300;
-        }
-
-        /* Info content */
-        .chiefdom-header {
-            background: var(--navy);
-            color: var(--white);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border-left: 5px solid var(--gold);
-        }
-
-        .chiefdom-header .ch-name {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .chiefdom-header .ch-district {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.7);
-            font-weight: 300;
-            margin-top: 4px;
-        }
-
-        .info-section {
-            background: var(--off-white);
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
-
-        .info-section-head {
-            background: var(--navy-dark);
-            padding: 0.5rem 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .info-section-head span {
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--white);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .info-section-head .section-icon { font-size: 0.85rem; }
-
-        .info-rows { padding: 0; }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 0.6rem 0.9rem;
-            border-bottom: 1px solid var(--border);
-            gap: 0.5rem;
-        }
-
-        .info-row:last-child { border-bottom: none; }
-
-        .ir-label {
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--navy);
-            flex: 1;
-            min-width: 80px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-
-        .ir-value {
-            font-size: 0.78rem;
-            color: var(--text);
-            text-align: right;
-            font-weight: 400;
-            flex: 1.5;
-            word-break: break-word;
-            line-height: 1.4;
-        }
-
-        /* Intervention tags */
-        .intervention-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            padding: 0.75rem 0.9rem;
-        }
-
-        .itag {
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            padding: 3px 10px;
-            border-radius: 12px;
-            text-transform: uppercase;
-            border: 2px solid;
-        }
-
-        .itag-active { background: var(--navy); color: var(--white); border-color: var(--navy); }
-        .itag-inactive { background: var(--off-white); color: var(--muted); border-color: var(--border); text-decoration: line-through; }
-        .itag-gold { background: var(--gold); color: var(--navy); border-color: var(--gold); }
-
-        /* Footer */
-        footer {
-            background: var(--navy);
-            border-top: 3px solid var(--gold);
-            padding: 0.6rem 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-            text-align: center;
-        }
-
-        footer p {
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.65);
-            font-weight: 300;
+        header p {
+            font-size: 13px;
+            opacity: 0.9;
             margin: 0;
         }
 
-        footer strong { color: var(--white); font-weight: 600; }
+        .nav-container {
+            display: flex;
+            overflow-x: auto;
+            border-bottom: 0.5px solid #e0e0e0;
+            background-color: #fafafa;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
 
-        /* Scrollbar styling */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--off-white); }
-        ::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 3px; }
-        
-        /* Better tap targets */
-        .chiefdom-dot {
+        .nav-button {
+            flex: 0 0 auto;
+            padding: 1rem;
+            border: none;
+            background-color: transparent;
+            color: #004080;
             cursor: pointer;
-            touch-action: manipulation;
+            font-size: 13px;
+            font-weight: 400;
+            border-bottom: 3px solid transparent;
+            transition: all 200ms ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        
-        /* Tablet portrait improvement */
-        @media (min-width: 550px) {
-            .chiefdoms-subplot {
-                grid-template-columns: repeat(4, 1fr);
+
+        .nav-button i {
+            font-size: 16px;
+        }
+
+        .nav-button.active {
+            background-color: #004080;
+            color: #ffffff;
+            font-weight: 500;
+            border-bottom-color: #ffc107;
+        }
+
+        .content-area {
+            padding: 1.5rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-area h2 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #004080;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .content-block {
+            background-color: #f9f9f9;
+            border: 0.5px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1rem;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block h3 {
+            font-size: 15px;
+            font-weight: 500;
+            color: #004080;
+            margin-bottom: 0.75rem;
+        }
+
+        .content-block p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555555;
+            margin: 0;
+        }
+
+        .clickable-card {
+            cursor: pointer;
+            transition: background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .clickable-card:hover {
+            background-color: #f0f4f9;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Modal overlay styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            max-width: 90vw;
+            width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.2s ease;
+            border-top: 6px solid #ffc107;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
             }
-            .brand-text h1 { font-size: 1.3rem; }
-            header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-            .header-stats {
-                width: auto;
-                gap: 1rem;
-            }
-            .hstat {
-                padding: 0.25rem 0.5rem;
-            }
-            footer {
-                flex-direction: row;
-                justify-content: space-between;
-                text-align: left;
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
         }
-        
-        @media (min-width: 768px) {
-            .main-wrap {
-                flex-direction: row;
-                height: auto;
-                min-height: calc(100vh - 210px);
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            background-color: #fefefe;
+        }
+
+        .modal-header h3 {
+            font-size: 1.25rem;
+            color: #004080;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #6c757d;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: #004080;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .output-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .output-card {
+            background: #f8f9fc;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .output-title {
+            background: #eef2f7;
+            padding: 0.7rem 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #004080;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .output-image-area {
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            background: white;
+            min-height: 180px;
+        }
+
+        .output-image-area img {
+            max-width: 100%;
+            max-height: 260px;
+            border-radius: 12px;
+            object-fit: contain;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border: 1px solid #f0f0f0;
+        }
+
+        .output-description {
+            padding: 0.6rem 1rem 1rem 1rem;
+            font-size: 13px;
+            color: #4a5568;
+            border-top: 1px solid #edf2f7;
+            background-color: #ffffff;
+        }
+
+        .no-image-message {
+            background: #f1f3f5;
+            border-radius: 12px;
+            padding: 28px 12px;
+            text-align: center;
+            color: #868e96;
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        .placeholder-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            justify-content: flex-end;
+            border-top: 1px solid #eef2f6;
+            padding-top: 18px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #2c3e66;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .action-btn.add-btn:hover {
+            background: #e6f7e6;
+            border-color: #2e7d32;
+            color: #1e5a1e;
+        }
+
+        .action-btn.remove-btn:hover {
+            background: #ffe6e6;
+            border-color: #c62828;
+            color: #b71c1c;
+        }
+
+        .small-note {
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        footer {
+            background-color: #f0f0f0;
+            border-top: 0.5px solid #e0e0e0;
+            padding: 1rem;
+            text-align: center;
+            font-size: 12px;
+            color: #888888;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+            padding: 0.25rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .nav-button {
+                padding: 0.75rem 0.5rem;
+                font-size: 12px;
             }
-            .map-panel {
-                flex: 2.2;
-                border-right: 3px solid var(--border);
-                border-bottom: none;
+            .content-area {
+                padding: 1rem;
             }
-            .info-panel {
-                flex: 1;
-                max-width: 380px;
-                margin-top: 0;
-                border-radius: 0;
+            header h1 {
+                font-size: 18px;
             }
-            .districts-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .chiefdoms-subplot {
-                grid-template-columns: repeat(4, 1fr);
+            .modal-container {
+                width: 95vw;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <h1>SNT Digital Handbook</h1>
+        <p>Subnational Tailoring for Malaria Control</p>
+    </header>
 
-<!-- HEADER -->
-<header>
-    <div class="brand">
-        <div class="brand-badge">
-            <span>ICF<br>SL</span>
-        </div>
-        <div class="brand-text">
-            <h1>Informatics Consultancy Firm</h1>
-            <p>Interactive District &amp; Chiefdom Malaria Information System — Sierra Leone</p>
-        </div>
-    </div>
-    <div class="header-stats" id="headerStats"></div>
-</header>
-
-<!-- TITLE BAR -->
-<div class="title-bar">
-    <div class="title-bar-icon">🗺️</div>
-    <div>
-        <h2>District &amp; Chiefdom Malaria Intervention Viewer</h2>
-        <p>National Malaria Control Programme (NMCP) · Click any chiefdom dot to explore intervention data</p>
-    </div>
-</div>
-
-<!-- STATS ROW -->
-<div class="stats-row" id="statsRow"></div>
-
-<!-- MAIN CONTENT -->
-<div class="main-wrap">
-    <!-- MAP PANEL -->
-    <div class="map-panel">
-        <div id="mapContent"></div>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <button class="nav-button active" data-section="overview">
+            <i class="ti ti-home"></i> Overview
+        </button>
+        <button class="nav-button" data-section="datacollection">
+            <i class="ti ti-database"></i> Data Collection
+        </button>
+        <button class="nav-button" data-section="analysis">
+            <i class="ti ti-chart-bar"></i> Analysis
+        </button>
+        <button class="nav-button" data-section="dashboarding">
+            <i class="ti ti-layout-grid"></i> Dashboarding
+        </button>
+        <button class="nav-button" data-section="resources">
+            <i class="ti ti-file-text"></i> Resources
+        </button>
     </div>
 
-    <!-- INFO PANEL -->
-    <div class="info-panel">
-        <div class="info-panel-head">
-            <h3>📊 Chiefdom Data Panel</h3>
-            <p>Select a chiefdom from the map to view details</p>
+    <!-- Content Area -->
+    <div class="content-area">
+        <!-- Overview Section -->
+        <div id="overview" class="content-section active">
+            <h2>Overview</h2>
+            <div class="content-block">
+                <h3>What is SNT?</h3>
+                <p>Subnational Tailoring (SNT) is the process of adapting national malaria program strategies to reflect the unique epidemiological, operational, and socioeconomic context of each district. SNT enables targeted, evidence-based interventions that maximize impact with available resources.</p>
+            </div>
+            <div class="content-block">
+                <h3>Why SNT Matters</h3>
+                <p>Districts vary widely in malaria burden, population density, health system capacity, and geography. One-size-fits-all approaches miss opportunities for efficiency. SNT uses local data to prioritize interventions and allocate resources where they will have the greatest effect.</p>
+            </div>
+            <div class="content-block">
+                <h3>SNT Cycle</h3>
+                <p>Continuous process: Data Assembly → Analysis → Strategy → Implementation → Monitoring → Review. Each district completes this cycle quarterly, with annual comprehensive strategic reviews informing national-level policy.</p>
+            </div>
         </div>
-        <div class="info-panel-body" id="infoContent">
-            <div class="welcome-state">
-                <div class="welcome-icon">📍</div>
-                <h4>No Chiefdom Selected</h4>
-                <p>Click on any blue dot in the district frames to load chiefdom-level malaria intervention information.</p>
+
+        <!-- Data Collection Section -->
+        <div id="datacollection" class="content-section">
+            <h2>Data Collection</h2>
+            <div class="content-block">
+                <h3>Core Data Sources</h3>
+                <p>Primary data: HMIS facility reports, DIS surveillance, case investigations. Secondary: population surveys, health facility assessments, mapping data. Tertiary: campaigns (ITN, IRS, SMC), treatment coverage.</p>
+            </div>
+            <div class="content-block">
+                <h3>Data Quality Assurance</h3>
+                <p>Verify completeness, accuracy, and consistency. Use DQA tools to identify issues. Train health workers on proper documentation. Establish feedback loops for rapid correction. Review data at facility, district, and national levels.</p>
+            </div>
+            <div class="content-block">
+                <h3>Timeliness</h3>
+                <p>Monthly HMIS reporting with district review. Quarterly SNT data assembly. Annual strategic reviews. Real-time alerts for outbreaks or supply gaps. Establish clear deadlines and accountability mechanisms.</p>
+            </div>
+            <div class="content-block">
+                <h3>ICF Collect Integration</h3>
+                <p>Use mobile forms for field data collection. Real-time submission to DHIS2. Offline capability for areas with poor connectivity. Cascading dropdowns and validation rules reduce errors.</p>
+            </div>
+        </div>
+
+        <!-- Analysis Section (Clickable cards with modal) -->
+        <div id="analysis" class="content-section">
+            <h2>Analysis</h2>
+            <div class="content-block clickable-card" data-analysis-type="epidemiology">
+                <h3>Epidemiological Analysis 📊</h3>
+                <p>Calculate district-level malaria burden: incidence, parasite positivity rate (TPR), age-stratified cases, seasonal patterns. Compare to national targets and neighboring districts. Identify geographic hotspots using facility-level mapping.</p>
+                <p style="font-size: 12px; color: #ffc107; margin-top: 0.75rem; cursor: pointer;"><i class="ti ti-click"></i> Click to view sample output</p>
+            </div>
+            <div class="content-block clickable-card" data-analysis-type="coverage">
+                <h3>Intervention Coverage Assessment 💉</h3>
+                <p>Assess current coverage of ITNs, IRS, ACT treatment, and other interventions. Estimate gaps and barriers to coverage. Model projected impact of coverage improvements. Identify equity gaps across populations.</p>
+                <p style="font-size: 12px; color: #ffc107; margin-top: 0.75rem; cursor: pointer;"><i class="ti ti-click"></i> Click to view sample output</p>
+            </div>
+            <div class="content-block clickable-card" data-analysis-type="capacity">
+                <h3>Health System Capacity 🏥</h3>
+                <p>Evaluate facility infrastructure, human resources, supply chain reliability, and data systems. Identify bottlenecks limiting program performance. Prioritize capacity strengthening interventions.</p>
+                <p style="font-size: 12px; color: #ffc107; margin-top: 0.75rem; cursor: pointer;"><i class="ti ti-click"></i> Click to view sample output</p>
+            </div>
+            <div class="content-block clickable-card" data-analysis-type="tools">
+                <h3>Analytical Tools 🔧</h3>
+                <p>DHIS2 analytics platform. D-MAT for advanced statistical analysis. Choropleth mapping for geographic visualization. Time series analysis for trend detection. Interrupted time series for intervention impact evaluation.</p>
+                <p style="font-size: 12px; color: #ffc107; margin-top: 0.75rem; cursor: pointer;"><i class="ti ti-click"></i> Click to view sample output</p>
+            </div>
+        </div>
+
+        <!-- Dashboarding Section -->
+        <div id="dashboarding" class="content-section">
+            <h2>Dashboarding</h2>
+            <div class="content-block">
+                <h3>Real-time HMIS Dashboards</h3>
+                <p>Display monthly HMIS trends, facility-level performance, case mapping, and intervention coverage. Enable district staff to monitor progress toward targets in real time. Update automatically from DHIS2.</p>
+            </div>
+            <div class="content-block">
+                <h3>SNT District Profile Dashboard</h3>
+                <p>Comprehensive district profile: epidemiology, interventions, capacity, and financial performance. Updated quarterly. Shared with national program, WHO, and partners. Includes trend analysis and comparison metrics.</p>
+            </div>
+            <div class="content-block">
+                <h3>Campaign-Specific Dashboards</h3>
+                <p>Real-time tracking of ITN distribution, IRS campaigns, treatment campaigns. School-based distribution monitoring with QR codes. Staff ID card systems for accountability. Coverage mapping and progress toward targets.</p>
+            </div>
+            <div class="content-block">
+                <h3>Visualization Best Practices</h3>
+                <p>Use choropleth maps for geographic patterns. Time series for trends. Bar charts for district comparisons. Keep visuals simple and actionable. Label clearly. Target audience: district health teams and national program.</p>
+            </div>
+        </div>
+
+        <!-- Resources Section -->
+        <div id="resources" class="content-section">
+            <h2>Resources</h2>
+            <div class="content-block">
+                <h3>Digital Tools & Platforms</h3>
+                <p><strong>ICF Collect:</strong> Mobile data collection PWA. <strong>DHIS2:</strong> Data management and analytics platform. <strong>D-MAT:</strong> Malaria analytics training academy. <strong>QR-Based Tracking:</strong> Campaign monitoring. <strong>Staff ID Systems:</strong> Field accountability.</p>
+            </div>
+            <div class="content-block">
+                <h3>Guidance Documents</h3>
+                <p>SNT methodology handbook. District health plan templates. Data quality standards. Campaign reporting guidelines. DHIS2 configuration documentation. Analysis protocols and indicator definitions.</p>
+            </div>
+            <div class="content-block">
+                <h3>Training & Capacity Building</h3>
+                <p>D-MAT Academy online modules. District-level data analytics training. DHIS2 fundamentals and advanced courses. Health facility dashboard orientation. AMMnet peer learning network.</p>
+            </div>
+            <div class="content-block">
+                <h3>Technical Support</h3>
+                <p>Contact ICF-SL for technical assistance and troubleshooting. Join AMMnet for capacity building and peer learning. Reach out to NMCP for policy clarification. Access documentation portal for guides and tutorials.</p>
+            </div>
+            <div class="content-block">
+                <h3>Partners & Networks</h3>
+                <p><strong>NMCP:</strong> National Malaria Control Programme. <strong>WHO:</strong> Technical guidance and standards. <strong>Abt Global/PMI Evolve:</strong> Program support. <strong>Northwestern University:</strong> Data analytics research. <strong>AMMnet:</strong> African Malaria Modelling Network.</p>
             </div>
         </div>
     </div>
-</div>
 
-<!-- FOOTER -->
-<footer>
-    <p><strong>ICF-SL</strong> — Informatics Consultancy Firm · Freetown, Sierra Leone</p>
-    <p>National Malaria Control Programme (NMCP) · Data: 2025</p>
-    <p>© 2025 <strong>All Rights Reserved</strong></p>
-</footer>
-
-<script>
-const districtsData = {
-  "KAILAHUN": [{"name":"DEA","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"DEA","adm3":"Dea Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"JAHN","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"JAHN","adm3":"Jahn Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"JAWIE","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"JAWIE","adm3":"Jawei Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"KISSI KAMA","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"KISSI KAMA","adm3":"Kissi Kama Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"KISSI TENG","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"KISSI TENG","adm3":"Kissi Teng Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"KISSI TONGI","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"KISSI TONGI","adm3":"Kissi Tongi Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"KPEJE BONGRE","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"KPEJE BONGRE","adm3":"Peje Bongre Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"KPEJE WEST","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"KPEJE WEST","adm3":"Peje West Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"LUAWA","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"LUAWA","adm3":"Luawa Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"MALEMA","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"MALEMA","adm3":"Malema Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"MANDU","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"MANDU","adm3":"Mandu Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"NJALUAHUN","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"NJALUAHUN","adm3":"Njaluahun Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"PENGUIA","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"PENGUIA","adm3":"Penguia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"UPPER BAMBARA","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"UPPER BAMBARA","adm3":"Upper Bambara Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"YAWEI","district":"KAILAHUN","excel_data":{"FIRST_DNAM":"KAILAHUN","FIRST_CHIE":"YAWEI","adm3":"Yawei Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}}],
-  "KENEMA": [{"name":"DAMA","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"DAMA","adm3":"Dama Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"DODO","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"DODO","adm3":"Dodo Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"GAURA","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"GAURA","adm3":"Gaura Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"GORAMA MENDE","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"GORAMA MENDE","adm3":"Gorama Mende Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KANDU LEPPIAMA","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"KANDU LEPPIAMA","adm3":"Kandu Leppiama Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"KOYA","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"KOYA","adm3":"Koya (Kenema) Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"LANGRAMA","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"LANGRAMA","adm3":"Langroma Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"LOWER BAMBARA","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"LOWER BAMBARA","adm3":"Lower Bambara Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"MALEGOHUN","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"MALEGOHUN","adm3":"Malegohun Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"NIAWA","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"NIAWA","adm3":"Niawa Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"NOMO","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"NOMO","adm3":"Nomo Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"NONGOWA","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"NONGOWA","adm3":"Nongowa Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"SIMBARU","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"SIMBARU","adm3":"Simbaru Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"SMALL BO","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"SMALL BO","adm3":"Small Bo Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"TUNKIA","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"TUNKIA","adm3":"Tunkia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"WANDOR","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"WANDOR","adm3":"Wandor Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"KENEMA CITY","district":"KENEMA","excel_data":{"FIRST_DNAM":"KENEMA","FIRST_CHIE":"KENEMA CITY","adm3":"Kenema City","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}}],
-  "KONO": [{"name":"FIAMA","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"FIAMA","adm3":"Fiama Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"GBANE","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"GBANE","adm3":"Gbane Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"GBANE KANDOR","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"GBANE KANDOR","adm3":"Gbane Kandor Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"GBENSE","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"GBENSE","adm3":"Gbense Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"GORAMA KONO","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"GORAMA KONO","adm3":"Gorama Kono Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"KAMARA","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"KAMARA","adm3":"Kamara Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"LEI","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"LEI","adm3":"Lei Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"MAFINDOR","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"MAFINDOR","adm3":"Mafindor Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"NIMIKORO","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"NIMIKORO","adm3":"Nimikoro Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"NIMIYAMA","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"NIMIYAMA","adm3":"Nimiyama Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"SANDOR","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"SANDOR","adm3":"Sandor Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"SOA","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"SOA","adm3":"Soa Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"TANKORO","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"TANKORO","adm3":"Tankoro Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"TOLI","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"TOLI","adm3":"Toli Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KOIDU CITY","district":"KONO","excel_data":{"FIRST_DNAM":"KONO","FIRST_CHIE":"KOIDU CITY","adm3":"Koidu New Sembehun City","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}}],
-  "BOMBALI": [{"name":"BIRIWA","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"BIRIWA","adm3":"Biriwa Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"BOMBALI SEBORA","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"BOMBALI SEBORA","adm3":"Bombali Sebora Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"BOMBALI SIARI","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"BOMBALI SIARI","adm3":"Bombali Serry Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"GBANTI","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"GBANTI","adm3":"Gbanti (Bombali) Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"GBENDEMBU","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"GBENDEMBU","adm3":"Gbendembu Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KAMARANKA","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"KAMARANKA","adm3":"Kamaranka Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"MAGBAIMBA NDORWAHUN","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"MAGBAIMBA NDORWAHUN","adm3":"Magbaimba Ndohahun Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"MAKARI","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"MAKARI","adm3":"Makarie Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"MARA","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"MARA","adm3":"Mara Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"N'GOWAHUN","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"N'GOWAHUN","adm3":"Ngowahun Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"PAKI MASABONG","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"PAKI MASABONG","adm3":"Paki Masabong Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"SAFROKO LIMBA","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"SAFROKO LIMBA","adm3":"Safroko Limba Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"MAKENI CITY","district":"BOMBALI","excel_data":{"FIRST_DNAM":"BOMBALI","FIRST_CHIE":"MAKENI CITY","adm3":"Makeni City","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}}],
-  "FALABA": [{"name":"DELEMANDUGU","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"DELEMANDUGU","adm3":"Delmandugu Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"DEMBELIA","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"DEMBELIA","adm3":"Folosaba Kamba Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"DEMBELIA-SINKUNIA","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"DEMBELIA-SINKUNIA","adm3":"Dembelia-Sinkunia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"FOLOSABA","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"FOLOSABA","adm3":"Folosaba Dembelia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"KAMADU YIRAIA","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"KAMADU YIRAIA","adm3":"Kamadugu Yiraia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"KEBELIA","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"KEBELIA","adm3":"Kabelia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"KULOR SARADU","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"KULOR SARADU","adm3":"Kulor Saradu Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"MONGO","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"MONGO","adm3":"Mongo Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"MORIFINDUGU","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"MORIFINDUGU","adm3":"Morifindu Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"NEYA","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"NEYA","adm3":"Neya Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"NYEDU","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"NYEDU","adm3":"Nyedu Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"SULIMA","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"SULIMA","adm3":"Sulima Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"WOLLAY BARAWA","district":"FALABA","excel_data":{"FIRST_DNAM":"FALABA","FIRST_CHIE":"WOLLAY BARAWA","adm3":"Barawa Wollay Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}}],
-  "KOINADUGU": [{"name":"DIANG","district":"KOINADUGU","excel_data":{"FIRST_DNAM":"KOINADUGU","FIRST_CHIE":"DIANG","adm3":"Diang Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"GBONKOBON KAYAKA","district":"KOINADUGU","excel_data":{"FIRST_DNAM":"KOINADUGU","FIRST_CHIE":"GBONKOBON KAYAKA","adm3":"Gbonkorbor Kayaka Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KALIAN","district":"KOINADUGU","excel_data":{"FIRST_DNAM":"KOINADUGU","FIRST_CHIE":"KALIAN","adm3":"Kallian Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"KAMUKEH","district":"KOINADUGU","excel_data":{"FIRST_DNAM":"KOINADUGU","FIRST_CHIE":"KAMUKEH","adm3":"Kamukeh Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"KASUNKO KAKELLIAN","district":"KOINADUGU","excel_data":{"FIRST_DNAM":"KOINADUGU","FIRST_CHIE":"KASUNKO KAKELLIAN","adm3":"Kasunko Kakellay Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"NIENI","district":"KOINADUGU","excel_data":{"FIRST_DNAM":"KOINADUGU","FIRST_CHIE":"NIENI","adm3":"Nieni Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"SENGBE","district":"KOINADUGU","excel_data":{"FIRST_DNAM":"KOINADUGU","FIRST_CHIE":"SENGBE","adm3":"Sengbeh Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"TAMISO","district":"KOINADUGU","excel_data":{"FIRST_DNAM":"KOINADUGU","FIRST_CHIE":"TAMISO","adm3":"Thamiso Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"WARA WARA BAFODIA","district":"KOINADUGU","excel_data":{"FIRST_DNAM":"KOINADUGU","FIRST_CHIE":"WARA WARA BAFODIA","adm3":"Wara Wara Bafodia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"WARA WARA YAGALA","district":"KOINADUGU","excel_data":{"FIRST_DNAM":"KOINADUGU","FIRST_CHIE":"WARA WARA YAGALA","adm3":"Wara Wara Yagala Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}}],
-  "TONKOLILI": [{"name":"DANSOGOIA","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"DANSOGOIA","adm3":"Dansogoia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"GBONKOLENKENI/MASANKONG","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"GBONKOLENKENI/MASANKONG","adm3":"Gbokolenken Masankong Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"KAFE","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"KAFE","adm3":"Kafe Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"KALANTHUBA","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"KALANTHUBA","adm3":"Kalantuba Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"KHOLIFA MABANG","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"KHOLIFA MABANG","adm3":"Kholifa Mabang Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"KHOLIFA MAMUNTHA/MAYOSSO","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"KHOLIFA MAMUNTHA/MAYOSSO","adm3":"Kholifa Mamuntha Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"KHOLIFA ROWALA","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"KHOLIFA ROWALA","adm3":"Kholifa Rowalla Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"KUNIKE BARINA","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"KUNIKE BARINA","adm3":"Kunike Barina Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"KUNIKE FOLAWUSU","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"KUNIKE FOLAWUSU","adm3":"Kunike Fulawusu Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KUNIKE SANDA","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"KUNIKE SANDA","adm3":"Kunike Sanda Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"MALAL","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"MALAL","adm3":"Malal Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"MAYEPPOH","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"MAYEPPOH","adm3":"Gbokolenken Mayeppoh Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"POLI","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"POLI","adm3":"Gbokolenken Polie Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"SAMBAYA","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"SAMBAYA","adm3":"Sambaya Bendugu Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"SIMIRIA","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"SIMIRIA","adm3":"Simiria Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"TANE","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"TANE","adm3":"Tane Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"YELE","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"YELE","adm3":"Gbokolenken Yele Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"YONI MABANTA","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"YONI MABANTA","adm3":"Yoni Mabanta Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"YONI MAMAILA","district":"TONKOLILI","excel_data":{"FIRST_DNAM":"TONKOLILI","FIRST_CHIE":"YONI MAMAILA","adm3":"Yoni Mamala Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}}],
-  "KAMBIA": [{"name":"BRAMAIA","district":"KAMBIA","excel_data":{"FIRST_DNAM":"KAMBIA","FIRST_CHIE":"BRAMAIA","adm3":"Bramaia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"DIXON","district":"KAMBIA","excel_data":{"FIRST_DNAM":"KAMBIA","FIRST_CHIE":"DIXON","adm3":"Dixon Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"GBINLE","district":"KAMBIA","excel_data":{"FIRST_DNAM":"KAMBIA","FIRST_CHIE":"GBINLE","adm3":"Gbinleh Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"KHONIMAKA","district":"KAMBIA","excel_data":{"FIRST_DNAM":"KAMBIA","FIRST_CHIE":"KHONIMAKA","adm3":"Konimaka Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"MAGBEMA","district":"KAMBIA","excel_data":{"FIRST_DNAM":"KAMBIA","FIRST_CHIE":"MAGBEMA","adm3":"Magbema Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"MAMBOLO","district":"KAMBIA","excel_data":{"FIRST_DNAM":"KAMBIA","FIRST_CHIE":"MAMBOLO","adm3":"Mambolo Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"MASUNGBALA","district":"KAMBIA","excel_data":{"FIRST_DNAM":"KAMBIA","FIRST_CHIE":"MASUNGBALA","adm3":"Masumgbala Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"MUNU THALLAH","district":"KAMBIA","excel_data":{"FIRST_DNAM":"KAMBIA","FIRST_CHIE":"MUNU THALLAH","adm3":"Munu Thalla Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"SAMU","district":"KAMBIA","excel_data":{"FIRST_DNAM":"KAMBIA","FIRST_CHIE":"SAMU","adm3":"Samu Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"TONKO LIMBA","district":"KAMBIA","excel_data":{"FIRST_DNAM":"KAMBIA","FIRST_CHIE":"TONKO LIMBA","adm3":"Tonko Limba Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}}],
-  "KARENE": [{"name":"BUYA","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"BUYA","adm3":"Buya Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"DIBIA","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"DIBIA","adm3":"Dibia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"GBANTI_KARENE","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"GBANTI_KARENE","adm3":"Gbanti (Karene) Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"LIBEISAYGAHUN/GBOMBAHUN","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"LIBEISAYGAHUN/GBOMBAHUN","adm3":"Gormbahun Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"MAFONDA MAKEREMBAY","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"MAFONDA MAKEREMBAY","adm3":"Mafonda Makerembay Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"ROMENDE","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"ROMENDE","adm3":"Romende Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"SAFROKO","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"SAFROKO","adm3":"Safroko Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"SANDA LOKO","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"SANDA LOKO","adm3":"Sanda Loko Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"SANDA MAGBOLONTOR","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"SANDA MAGBOLONTOR","adm3":"Sanda Magbolonthor Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"SANDA TENDARAN","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"SANDA TENDARAN","adm3":"Sanda Tendaren Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"SELLA LIMBA","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"SELLA LIMBA","adm3":"Sella Limba Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"TAMBAKHA SIMIBUNGIE","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"TAMBAKHA SIMIBUNGIE","adm3":"Tambaka Simibungie Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"TAMBAKHA YOBANGIE","district":"KARENE","excel_data":{"FIRST_DNAM":"KARENE","FIRST_CHIE":"TAMBAKHA YOBANGIE","adm3":"Tambaka Yobangie Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}}],
-  "PORT LOKO": [{"name":"BAKEH LOKO","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"BAKEH LOKO","adm3":"Bake-Loko Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"BUREH","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"BUREH","adm3":"Bureh Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KAFFU BULLOM","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"KAFFU BULLOM","adm3":"Kaffu Bullom Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"KAMASONDO","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"KAMASONDO","adm3":"Kamasondo Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KASSEH","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"KASSEH","adm3":"Kasseh Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"KOYA","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"KOYA","adm3":"Koya (Port Loko) Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"LOKOMASAMA","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"LOKOMASAMA","adm3":"Lokomasama Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"MACONTEH","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"MACONTEH","adm3":"Maconteh Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"MAFORKI","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"MAFORKI","adm3":"Maforki Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"MAKAMA","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"MAKAMA","adm3":"Makama Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"MARAMPA","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"MARAMPA","adm3":"Marampa Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"MASIMERA","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"MASIMERA","adm3":"Masimera Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"THAINKATOPA","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"THAINKATOPA","adm3":"Tainkatopa Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"PORT LOKO CITY","district":"PORT LOKO","excel_data":{"FIRST_DNAM":"PORT LOKO","FIRST_CHIE":"PORT LOKO CITY","adm3":"Port Loko City","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}}],
-  "BO": [{"name":"BADJIA","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"BADJIA","adm3":"Badjia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"BAGBO","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"BAGBO","adm3":"Bargbo Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"BAGBWE(BAGBE)","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"BAGBWE(BAGBE)","adm3":"Bagbwe Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"BOAMA","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"BOAMA","adm3":"Baoma Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"BONGOR","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"BONGOR","adm3":"Bongor Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"BUMPE NGAO","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"BUMPE NGAO","adm3":"Bumpe Ngao Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"GBO","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"GBO","adm3":"Gbo Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"JAIAMA","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"JAIAMA","adm3":"Jaiama Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KAKUA","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"KAKUA","adm3":"Kakua Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"KOMBOYA","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"KOMBOYA","adm3":"Komboya Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"LUGBU","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"LUGBU","adm3":"Lugbu Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"NIAWA LENGA","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"NIAWA LENGA","adm3":"Niawa Lenga Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"SELENGA","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"SELENGA","adm3":"Selenga Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"TIKONKO","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"TIKONKO","adm3":"Tikonko Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"VALUNIA","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"VALUNIA","adm3":"Valunia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"WONDE","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"WONDE","adm3":"Wonde Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+IRS+PMC"}},{"name":"BO TOWN","district":"BO","excel_data":{"FIRST_DNAM":"BO","FIRST_CHIE":"BO TOWN","adm3":"Bo City","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}}],
-  "BONTHE": [{"name":"BENDU-CHA","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"BENDU-CHA","adm3":"Bendu-Cha Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"BUM","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"BUM","adm3":"Bum Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"DEMA","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"DEMA","adm3":"Dema Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"IMPERRI","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"IMPERRI","adm3":"Imperi Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"JONG","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"JONG","adm3":"Jong Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"KPANDA KEMO","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"KPANDA KEMO","adm3":"Kpanda Kemoh Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"KWAMEBAI KRIM","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"KWAMEBAI KRIM","adm3":"Kwamebai Krim Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"NONGOBA BULLOM","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"NONGOBA BULLOM","adm3":"Nongoba Bullom Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"SITTIA","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"SITTIA","adm3":"Sittia Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"SOGBENI","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"SOGBENI","adm3":"Sogbini Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"YAWBEKO","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"YAWBEKO","adm3":"Yawbeko Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"BONTHE URBAN","district":"BONTHE","excel_data":{"FIRST_DNAM":"BONTHE","FIRST_CHIE":"BONTHE URBAN","adm3":"Bonthe Town","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}}],
-  "MOYAMBA": [{"name":"BAGRUWA","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"BAGRUWA","adm3":"Bagruwa Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"BUMPEH","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"BUMPEH","adm3":"Bumpeh Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"DASSE","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"DASSE","adm3":"Dasse Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"FAKUNYA","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"FAKUNYA","adm3":"Fakunya Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KAGBORO","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"KAGBORO","adm3":"Kargboro Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"KAIYAMBA","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"KAIYAMBA","adm3":"Kaiyamba Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KAMAJEI","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"KAMAJEI","adm3":"Kamajei Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"KONGBORA","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"KONGBORA","adm3":"Kongbora Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"KORI","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"KORI","adm3":"Kori Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}},{"name":"KOWA","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"KOWA","adm3":"Kowa Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"LOWER BANTA","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"LOWER BANTA","adm3":"Lower Banta Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"RIBBI","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"RIBBI","adm3":"Ribbi Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+PMC"}},{"name":"TIMDALE","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"TIMDALE","adm3":"Timdale Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"UPPER BANTA","district":"MOYAMBA","excel_data":{"FIRST_DNAM":"MOYAMBA","FIRST_CHIE":"UPPER BANTA","adm3":"Upper Banta Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+PMC"}}],
-  "PUJEHUN": [{"name":"BARRI","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"BARRI","adm3":"Barri Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"PERRI","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"PERRI","adm3":"Perri Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"KABONDE","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"KABONDE","adm3":"Kabonde Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"KPAKA","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"KPAKA","adm3":"Kpaka Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"MAKPELE","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"MAKPELE","adm3":"Makpele Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"MALEN","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"MALEN","adm3":"Malen Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"MONO SAKRIM","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"MONO SAKRIM","adm3":"Mano Sakrim Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"PANGA","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"PANGA","adm3":"Kpanga Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"PANGA KRIM","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"PANGA KRIM","adm3":"Kpanga Krim Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"PEJEH (FUTA PEJE)","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"PEJEH (FUTA PEJE)","adm3":"Peje Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"GALLINESS","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"GALLINESS","adm3":"Galliness Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"SORO GBEMA","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"SORO GBEMA","adm3":"Soro Gbeima Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}},{"name":"SOWA","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"SOWA","adm3":"Sowa Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+Mass ITN+SBD+PMC"}},{"name":"YAKEMU KPUKUMU","district":"PUJEHUN","excel_data":{"FIRST_DNAM":"PUJEHUN","FIRST_CHIE":"YAKEMU KPUKUMU","adm3":"Yakemoh Kpukumu Krim Chiefdom","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"IRS","mass_itn_irs":"No Mass ITN","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+IRS+PMC"}}],
-  "WESTERN RURAL": [{"name":"KOYA RURAL","district":"WESTERN RURAL","excel_data":{"FIRST_DNAM":"WESTERN RURAL","FIRST_CHIE":"KOYA RURAL","adm3":"Koya Rural Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"MOUNTAIN RURAL","district":"WESTERN RURAL","excel_data":{"FIRST_DNAM":"WESTERN RURAL","FIRST_CHIE":"MOUNTAIN RURAL","adm3":"Mountain Rural Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"WATERLOO RURAL","district":"WESTERN RURAL","excel_data":{"FIRST_DNAM":"WESTERN RURAL","FIRST_CHIE":"WATERLOO RURAL","adm3":"Waterloo Rural Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}},{"name":"YORK RURAL","district":"WESTERN RURAL","excel_data":{"FIRST_DNAM":"WESTERN RURAL","FIRST_CHIE":"YORK RURAL","adm3":"York Rural Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"Malaria vaccine","chw":"CHW","irs":"No IRS","mass_itn_irs":"Mass ITN","sbd_irs":"SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Malaria vaccine+CHW+Mass ITN+SBD+PMC"}}],
-  "WESTERN URBAN": [{"name":"CENTRAL I","district":"WESTERN URBAN","excel_data":{"FIRST_DNAM":"WESTERN URBAN","FIRST_CHIE":"CENTRAL I","adm3":"Central 1 Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"No malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Microstratification","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Microstratification+PMC"}},{"name":"CENTRAL II","district":"WESTERN URBAN","excel_data":{"FIRST_DNAM":"WESTERN URBAN","FIRST_CHIE":"CENTRAL II","adm3":"Central 2 Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"No malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Microstratification","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Microstratification+PMC"}},{"name":"EAST I","district":"WESTERN URBAN","excel_data":{"FIRST_DNAM":"WESTERN URBAN","FIRST_CHIE":"EAST I","adm3":"East 1 Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"No malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Microstratification","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Microstratification+PMC"}},{"name":"EAST II","district":"WESTERN URBAN","excel_data":{"FIRST_DNAM":"WESTERN URBAN","FIRST_CHIE":"EAST II","adm3":"East 2 Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"No malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Microstratification","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Microstratification+PMC"}},{"name":"EAST III","district":"WESTERN URBAN","excel_data":{"FIRST_DNAM":"WESTERN URBAN","FIRST_CHIE":"EAST III","adm3":"East 3 Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"No malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Microstratification","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Microstratification+PMC"}},{"name":"WEST I","district":"WESTERN URBAN","excel_data":{"FIRST_DNAM":"WESTERN URBAN","FIRST_CHIE":"WEST I","adm3":"West 1 Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"No malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Microstratification","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Microstratification+PMC"}},{"name":"WEST II","district":"WESTERN URBAN","excel_data":{"FIRST_DNAM":"WESTERN URBAN","FIRST_CHIE":"WEST II","adm3":"West 2 Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"No malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Microstratification","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Microstratification+PMC"}},{"name":"WEST III","district":"WESTERN URBAN","excel_data":{"FIRST_DNAM":"WESTERN URBAN","FIRST_CHIE":"WEST III","adm3":"West 3 Zone","CM":"CM","IPTp":"IPTp","Routine_ITN":"Routine ITN","malaria_vaccine":"No malaria vaccine","chw":"No CHW","irs":"No IRS","mass_itn_irs":"Microstratification","sbd_irs":"No SBD","pmc_no_smc":"PMC","mixes_with_irs_no_smc":"CM+IPTp+Routine ITN+Microstratification+PMC"}}]
-};
-
-// ── INITIAL PHONE-FIRST RENDER ──
-document.addEventListener('DOMContentLoaded', () => {
-    buildStats();
-    buildMap();
-    attachGlobalEvents();
-});
-
-function buildStats() {
-    const districts = Object.keys(districtsData).length;
-    const chiefdoms = Object.values(districtsData).reduce((s,c) => s+c.length, 0);
-    const avg = Math.round(chiefdoms/districts);
-
-    document.getElementById('headerStats').innerHTML = `
-        <div class="hstat"><div class="hstat-num">${districts}</div><div class="hstat-label">Districts</div></div>
-        <div class="hstat"><div class="hstat-num">${chiefdoms}</div><div class="hstat-label">Chiefdoms</div></div>
-        <div class="hstat"><div class="hstat-num">${avg}</div><div class="hstat-label">Avg / District</div></div>
-    `;
-
-    document.getElementById('statsRow').innerHTML = `
-        <div class="stat-pill">
-            <div class="stat-pill-icon">🏛️</div>
-            <div><div class="stat-pill-num">${districts}</div><div class="stat-pill-label">Districts</div></div>
+    <!-- Modal Structure for Analysis Outputs -->
+    <div id="analysisModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="modalTitle">Analysis Output</h3>
+                <button class="close-modal" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic gallery will be injected here -->
+            </div>
         </div>
-        <div class="stats-row-divider"></div>
-        <div class="stat-pill">
-            <div class="stat-pill-icon">📍</div>
-            <div><div class="stat-pill-num">${chiefdoms}</div><div class="stat-pill-label">Total Chiefdoms</div></div>
-        </div>
-        <div class="stats-row-divider"></div>
-        <div class="stat-pill">
-            <div class="stat-pill-icon">📊</div>
-            <div><div class="stat-pill-num">${avg}</div><div class="stat-pill-label">Avg per District</div></div>
-        </div>
-        <div class="stats-row-divider"></div>
-        <div class="stat-pill">
-            <div class="stat-pill-icon">🌍</div>
-            <div><div class="stat-pill-num">SL</div><div class="stat-pill-label">Sierra Leone</div></div>
-        </div>
-    `;
-}
+    </div>
 
-function buildMap() {
-    let html = '<div class="districts-grid">';
-    Object.keys(districtsData).forEach(district => {
-        const chiefdoms = districtsData[district];
-        html += `
-            <div class="district-frame">
-                <div class="district-title">
-                    <span class="district-title-text">📌 ${district}</span>
-                    <span class="district-badge">${chiefdoms.length} chiefdoms</span>
-                </div>
-                <div class="chiefdoms-subplot">
-        `;
-        chiefdoms.forEach((c, i) => {
-            const id = `${district}_${i}`;
-            const initials = c.name.split(' ').map(w => w[0]||'').join('').slice(0,3).toUpperCase();
-            const safe = JSON.stringify(c).replace(/'/g,'&apos;').replace(/"/g,'&quot;');
-            html += `
-                <div class="chiefdom-item">
-                    <div class="chiefdom-dot"
-                         id="dot_${id}"
-                         onclick="selectChiefdom(this)"
-                         title="${c.name}"
-                         data-chiefdom="${safe}">
-                        ${initials}
+    <footer>
+        <p><strong>Informatics Consultancy Firm Sierra Leone (ICF-SL)</strong></p>
+        <p>National Malaria Control Programme</p>
+        <p style="margin-top: 0.5rem; opacity: 0.7;">Digital solutions for malaria data & analytics</p>
+    </footer>
+
+    <script>
+        // ---------- DATA STORE: For each analysis type we store an array of output objects ----------
+        // Each output object: { title: string, imageUrl: string, description: string }
+        // By default we pre-populate each analysis type with 3 illustrative images (sample outputs)
+        
+        function createPlaceholderImage(titleText) {
+            const bgColor = "%23e9f0f5";
+            const accentColor = "%23004080";
+            return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 160'%3E%3Crect width='300' height='160' fill='${bgColor}'/%3E%3Ctext x='20' y='35' font-size='12' fill='${accentColor}'%3E${encodeURIComponent(titleText.substring(0,35))}%3C/text%3E%3Crect x='30' y='60' width='40' height='70' fill='%23366faa'/%3E%3Crect x='90' y='45' width='40' height='85' fill='%234d8bc4'/%3E%3Crect x='150' y='70' width='40' height='60' fill='%2366a3dd'/%3E%3Crect x='210' y='30' width='40' height='100' fill='%231f4e79'/%3E%3Ctext x='30' y='145' font-size='10' fill='%23333'%3EMalaria Data%3C/text%3E%3C/svg%3E`;
+        }
+
+        const analysisOutputsMap = {
+            epidemiology: [
+                { id: 'epi1', title: 'District Malaria Incidence Trends (2023-2025)', imageUrl: createPlaceholderImage('Incidence Trends'), description: 'Monthly incidence rates per 1,000 population showing seasonal peaks during rainy season. Decline in Q4 2024 after intensified IRS campaign.' },
+                { id: 'epi2', title: 'Parasite Positivity Rate (TPR) by Facility', imageUrl: createPlaceholderImage('TPR Heatmap'), description: 'Choropleth map of TPR across 12 districts. High burden in northern regions (>30% TPR). Targeted interventions recommended.' },
+                { id: 'epi3', title: 'Age-Stratified Case Distribution', imageUrl: createPlaceholderImage('Age Pyramid'), description: 'Children under 5 account for 42% of confirmed malaria cases, followed by 5-14 years (27%). Focus on under-five interventions.' }
+            ],
+            coverage: [
+                { id: 'cov1', title: 'ITN Coverage Gaps (Urban vs Rural)', imageUrl: createPlaceholderImage('ITN Coverage'), description: 'Rural districts show 68% ITN ownership vs urban 84%. Gap analysis identifies three priority zones for mass distribution.' },
+                { id: 'cov2', title: 'ACT Treatment Coverage & Barriers', imageUrl: createPlaceholderImage('ACT Access'), description: 'Only 55% of fever cases receive ACT within 24h. Main barriers: stockouts (34%) and distance to facilities (28%).' },
+                { id: 'cov3', title: 'IRS Campaign Completion Rates', imageUrl: createPlaceholderImage('IRS Performance'), description: '78% structural coverage achieved last campaign, with improvement needed in hard-to-reach chiefdoms.' }
+            ],
+            capacity: [
+                { id: 'cap1', title: 'Health Facility Readiness Index', imageUrl: createPlaceholderImage('Readiness Score'), description: 'Composite score: lab diagnostics (64%), trained staff (71%), essential medicines (59%). Bottom 5 districts require urgent support.' },
+                { id: 'cap2', title: 'Supply Chain Bottlenecks', imageUrl: createPlaceholderImage('Supply Chain'), description: 'Lead time for ACT resupply averages 14 days; stockout frequency highest in remote facilities (22% monthly).' },
+                { id: 'cap3', title: 'Human Resources Gaps', imageUrl: createPlaceholderImage('Staffing Gaps'), description: 'District-level malaria focal points: 3 districts have no dedicated officer. Recommendation: recruit surge capacity.' }
+            ],
+            tools: [
+                { id: 'tools1', title: 'DHIS2 Analytics Dashboard Snapshot', imageUrl: createPlaceholderImage('DHIS2 View'), description: 'Real-time HMIS dashboard showing key malaria indicators, district performance ranking, and early warning signals.' },
+                { id: 'tools2', title: 'D-MAT Model Output: Intervention Impact', imageUrl: createPlaceholderImage('D-MAT Simulation'), description: 'Predictive model shows that combining IRS + ITN reduces incidence by 42% in high-burden districts by 2026.' },
+                { id: 'tools3', title: 'Geospatial Mapping (Hotspots)', imageUrl: createPlaceholderImage('Hotspot Map'), description: 'Cluster detection identifies 47 high-transmission hotspots for targeted response using RDT mapping.' }
+            ]
+        };
+
+        function generateId() {
+            return Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+        }
+
+        function renderModalContent(analysisType) {
+            const outputs = analysisOutputsMap[analysisType] || [];
+            const modalBody = document.getElementById('modalBody');
+            if (!modalBody) return;
+            
+            let galleryHtml = `<div class="output-gallery" data-analysis-type="${analysisType}">`;
+            outputs.forEach((output) => {
+                galleryHtml += `
+                    <div class="output-card" data-output-id="${output.id}">
+                        <div class="output-title">
+                            <i class="ti ti-chart-line"></i> <span>${escapeHtml(output.title)}</span>
+                        </div>
+                        <div class="output-image-area">
+                            ${output.imageUrl ? `<img src="${output.imageUrl}" alt="analysis visual" loading="lazy">` : `<div class="no-image-message"><i class="ti ti-photo-off"></i> No image preview</div>`}
+                        </div>
+                        <div class="output-description">
+                            <i class="ti ti-info-circle" style="font-size:12px"></i> ${escapeHtml(output.description)}
+                        </div>
+                        <div class="placeholder-buttons">
+                            <button class="action-btn add-btn" data-action="add" data-type="${analysisType}"><i class="ti ti-plus"></i> Add Output</button>
+                            <button class="action-btn remove-btn" data-action="remove" data-type="${analysisType}" data-id="${output.id}"><i class="ti ti-trash"></i> Remove</button>
+                        </div>
                     </div>
-                    <div class="chiefdom-label">${c.name}</div>
-                </div>
-            `;
-        });
-        html += '</div></div>';
-    });
-    html += '</div>';
-    document.getElementById('mapContent').innerHTML = html;
-}
+                `;
+            });
+            galleryHtml += `<div class="small-note"><i class="ti ti-adjustments"></i> You can add or delete outputs — changes persist during this session.</div></div>`;
+            modalBody.innerHTML = galleryHtml;
+            
+            document.querySelectorAll('.add-btn').forEach(btn => {
+                btn.removeEventListener('click', handleAddOutput);
+                btn.addEventListener('click', handleAddOutput);
+            });
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.removeEventListener('click', handleRemoveOutput);
+                btn.addEventListener('click', handleRemoveOutput);
+            });
+        }
+        
+        function handleAddOutput(e) {
+            e.stopPropagation();
+            const btn = e.currentTarget;
+            const analysisType = btn.getAttribute('data-type');
+            if (!analysisType) return;
+            const newId = generateId();
+            const newTitle = `New Analysis Output (${new Date().toLocaleTimeString()})`;
+            const newImage = createPlaceholderImage('New Data Visualization');
+            const newDescription = 'Add your specific interpretation, field data, or custom chart. You can replace this image URL later.';
+            const newOutput = {
+                id: newId,
+                title: newTitle,
+                imageUrl: newImage,
+                description: newDescription
+            };
+            if (!analysisOutputsMap[analysisType]) analysisOutputsMap[analysisType] = [];
+            analysisOutputsMap[analysisType].push(newOutput);
+            const modal = document.getElementById('analysisModal');
+            if (modal && modal.classList.contains('active')) {
+                renderModalContent(analysisType);
+            }
+        }
+        
+        function handleRemoveOutput(e) {
+            e.stopPropagation();
+            const btn = e.currentTarget;
+            const analysisType = btn.getAttribute('data-type');
+            const outputId = btn.getAttribute('data-id');
+            if (!analysisType || !outputId) return;
+            if (analysisOutputsMap[analysisType]) {
+                const filtered = analysisOutputsMap[analysisType].filter(out => out.id !== outputId);
+                analysisOutputsMap[analysisType] = filtered;
+                const modal = document.getElementById('analysisModal');
+                if (modal && modal.classList.contains('active')) {
+                    renderModalContent(analysisType);
+                }
+            }
+        }
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        window.openAnalysisModal = function(analysisType) {
+            if (!analysisType) return;
+            const modal = document.getElementById('analysisModal');
+            const modalTitleElem = document.getElementById('modalTitle');
+            let displayTitle = '';
+            switch(analysisType) {
+                case 'epidemiology': displayTitle = 'Epidemiological Analysis Outputs'; break;
+                case 'coverage': displayTitle = 'Intervention Coverage Assessment'; break;
+                case 'capacity': displayTitle = 'Health System Capacity Insights'; break;
+                case 'tools': displayTitle = 'Analytical Tools & Model Outputs'; break;
+                default: displayTitle = 'Analysis Outputs';
+            }
+            modalTitleElem.innerText = displayTitle;
+            renderModalContent(analysisType);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+        
+        // FIXED: Tab switching function - no event parameter needed
+        function switchSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
 
-window.selectChiefdom = function(el) {
-    document.querySelectorAll('.chiefdom-dot').forEach(d => d.classList.remove('selected'));
-    el.classList.add('selected');
-    const c = JSON.parse(el.getAttribute('data-chiefdom').replace(/&quot;/g,'"').replace(/&apos;/g,"'"));
-    const d = c.excel_data;
-    const itvKeys = {
-        CM: d.CM, IPTp: d.IPTp, Routine_ITN: d.Routine_ITN,
-        malaria_vaccine: d.malaria_vaccine, chw: d.chw,
-        irs: d.irs, mass_itn_irs: d.mass_itn_irs,
-        sbd_irs: d.sbd_irs, pmc_no_smc: d.pmc_no_smc
-    };
-    let tagsHtml = '';
-    Object.entries(itvKeys).forEach(([k,v]) => {
-        const isNo = v.startsWith('No ');
-        const cls = isNo ? 'itag-inactive' : (k==='pmc_no_smc'||k==='malaria_vaccine' ? 'itag-gold' : 'itag-active');
-        tagsHtml += `<span class="itag ${cls}">${v}</span>`;
-    });
-    const fields = [
-        {k:'District', v: d.FIRST_DNAM},
-        {k:'Chiefdom (ADM3)', v: d.adm3},
-        {k:'Case Management', v: d.CM},
-        {k:'IPTp', v: d.IPTp},
-        {k:'Routine ITN', v: d.Routine_ITN},
-        {k:'Malaria Vaccine', v: d.malaria_vaccine},
-        {k:'CHW', v: d.chw},
-        {k:'IRS', v: d.irs},
-        {k:'Mass ITN / IRS', v: d.mass_itn_irs},
-        {k:'SBD / IRS', v: d.sbd_irs},
-        {k:'PMC', v: d.pmc_no_smc}
-    ];
-    let rowsHtml = fields.map(f => `
-        <div class="info-row">
-            <span class="ir-label">${f.k}</span>
-            <span class="ir-value">${f.v}</span>
-        </div>
-    `).join('');
-    document.getElementById('infoContent').innerHTML = `
-        <div class="chiefdom-header">
-            <div class="ch-name">${c.name} Chiefdom</div>
-            <div class="ch-district">${d.FIRST_DNAM} District · Sierra Leone</div>
-        </div>
-        <div class="info-section">
-            <div class="info-section-head">
-                <span class="section-icon">🏷️</span>
-                <span>Active Interventions</span>
-            </div>
-            <div class="intervention-tags">${tagsHtml}</div>
-        </div>
-        <div class="info-section">
-            <div class="info-section-head">
-                <span class="section-icon">📋</span>
-                <span>Intervention Details</span>
-            </div>
-            <div class="info-rows">${rowsHtml}</div>
-        </div>
-        <div class="info-section">
-            <div class="info-section-head">
-                <span class="section-icon">🔗</span>
-                <span>Full Intervention Mix</span>
-            </div>
-            <div class="info-rows">
-                <div class="info-row">
-                    <span class="ir-label">Mix</span>
-                    <span class="ir-value" style="font-size:0.75rem;color:#004080;font-weight:600;">${d.mixes_with_irs_no_smc}</span>
-                </div>
-            </div>
-        </div>
-    `;
-};
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
 
-function attachGlobalEvents() { }
-</script>
+            // Update nav buttons
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Find and activate the button with matching data-section
+            const activeButton = Array.from(buttons).find(btn => {
+                return btn.getAttribute('data-section') === sectionId;
+            });
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+
+            // Scroll to top
+            document.querySelector('.content-area').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Attach click handlers to analysis cards
+        function bindAnalysisCards() {
+            const cards = document.querySelectorAll('#analysis .clickable-card');
+            cards.forEach(card => {
+                const analysisType = card.getAttribute('data-analysis-type');
+                if (analysisType) {
+                    card.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        window.openAnalysisModal(analysisType);
+                    });
+                }
+            });
+        }
+        
+        // Close modal logic
+        function initModalControls() {
+            const modal = document.getElementById('analysisModal');
+            const closeBtn = document.getElementById('closeModalBtn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+        
+        // Set up navigation buttons
+        function initNavigation() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            navButtons.forEach(button => {
+                const sectionId = button.getAttribute('data-section');
+                if (sectionId) {
+                    button.addEventListener('click', function() {
+                        switchSection(sectionId);
+                    });
+                }
+            });
+        }
+        
+        // Initialize everything
+        function init() {
+            bindAnalysisCards();
+            initModalControls();
+            initNavigation();
+        }
+        
+        // Start the app
+        init();
+    </script>
 </body>
 </html>
